@@ -1,42 +1,39 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace ITTD
+namespace demoGame
 {
     class Bullet
     {
-        double bulletX;
-        bool canShoot = true;
-        int counterTimer;
-        public Rectangle bullet;
+        public Rectangle rectanble = new Rectangle();
+        MainWindow mainWindow;
+        Canvas canvas;
+        double rleft = 0;
 
-        public Bullet(Canvas c, bool facingLeft, double gunBarrelX, double gunBarrelY)
-        {
-            //create bullet
-            bullet = new Rectangle();
-            bullet.Width = 5;
-            bullet.Height = 5;
-            bullet.Fill = Brushes.Green;
-            //check which side of player to spawn the bullet on
-            if (facingLeft == false)
-            {
-                bulletX = gunBarrelX + 35;
-            }
-            if (facingLeft == true)
-            {
-                bulletX = gunBarrelX - 5;
-            }
-            c.Children.Add(bullet);
-            Canvas.SetLeft(bullet, bulletX);
-            Canvas.SetBottom(bullet, gunBarrelY + 15);
+        public Bullet(MainWindow mw, Canvas c) {
+            mainWindow = mw;
+            canvas = c;
+            rectanble.Height = 50;
+            rectanble.Width = 50;
+            rectanble.Fill = Brushes.Blue;
+            canvas.Children.Add(rectanble);
+            Canvas.SetLeft(rectanble, rleft);
+        }
+
+        public void update() {
+            rleft += 60.0/ 4.0;
+            Canvas.SetLeft(rectanble, rleft);
+        }
+
+        public void destroy() {
+            canvas.Children.Remove(rectanble);
         }
     }
 }
+
